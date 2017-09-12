@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Your New Jekyll Site</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <nav class="navbar sticky-top navbar-light bg-light">
+              <div class="container">
+                <a class="navbar-brand" href="/">fffollow</a>
+              </div>
+            </nav>
+
+          </div>
+
+          <div class="container">
+  
+    <div id="featuredUser">
+      <div id="featuredUserImage">
+
+      </div>
+      <span>20 Apr 2014</span> &raquo; <a href="/featured/2014/04/20/phil-giarrusso.html">Phil Giarrusso</a>
+    </div>
+    <script>
+      var featuredUserUrl = "";
+      $(function featuredUserImage(){
+        $.getJSON(featuredUserUrl, function(resp) {
+          if (resp.data.length > 0) {
+            $.each(resp.data.reverse(), function(i, val) {
+              $('#featuredUserImage').prepend(
+                '<img class="image-shot" src="'+val.images.normal+'" />'
+              );
+            });
+          }
+          else {
+            $('#shots').append('No shots.');
+          }
+          //console.log(resp.data)
+        });
+      });
+    </script>
+  
+  <div class="row">
+    
+      <div class="col-xs-12 col-sm-4"><h3><a href="/featured/2014/04/20/phil-giarrusso.html">Phil Giarrusso</a></h3><p>20 Apr 2014</p> </div>
+    
+  </div>
+</div>
+
+</div>
+
+
+
+    </body>
+</html>

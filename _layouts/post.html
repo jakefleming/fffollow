@@ -1,0 +1,53 @@
+---
+layout: default
+---
+
+
+
+<div class="post">
+  {{ content }}
+
+  <div class="container">
+
+    <div id="user">
+      <h2 id="name"></h2>
+      <p class="meta">{{ page.date | date_to_string }}</p>
+      <p id="bio"></p>
+    </div>
+    <div id="shots" class="row"></div>
+    <div class="row dribbble-feed"></div>
+
+
+  </div>
+
+  <script>
+  var user = "{{ page.user user_to_string }}";
+  var shots = "{{ page.userShots userShots_to_string }}";
+
+  $(function userShots(){
+    $.getJSON(shots, function(resp) {
+      if (resp.data.length > 0) {
+        $.each(resp.data.reverse(), function(i, val) {
+          $('#shots').prepend(
+            '<div class="col-xs-12 col-sm-4"><img class="image-shot" src="'+val.images.normal+'" /><h2>'+val.title+'</h2><p><a href="'+val.html_url+'">original post &rarr;</a></p></div>'
+          );
+        });
+      }
+      else {
+        $('#shots').append('No shots.');
+      }
+      //console.log(resp.data)
+    });
+  });
+  $(function userInfo(){
+    $.getJSON(user, function(resp) {
+      $('#name').append(
+        resp.data.name
+      );
+      $('#bio').append(
+        '<p>'+resp.data.bio+'</p>'
+      );
+    });
+    
+  });
+  </script>
