@@ -254,3 +254,29 @@
 /* Literal.Number.Integer.Long */
 body {
   background: white; }
+
+img {
+  max-width: 100%; }
+
+.avatar {
+  width: 3rem; }
+
+.card {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
+  border: none; }
+
+.btn-shadow {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1); }
+
+.btn-round {
+  border-radius: 1000px; }
+
+.card-round {
+  border-radius: 12px; }
+  .card-round .card-img-top {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px; }
+
+.img-round {
+  border-radius: 12px;
+  overflow: hidden; }

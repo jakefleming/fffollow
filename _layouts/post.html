@@ -1,53 +1,81 @@
 ---
 layout: default
+title: Your New Jekyll Site
 ---
 
-
-
-<div class="post">
-  {{ content }}
-
+{% for post in site.posts limit:1 %}
+<div class="jumbotron jumbotron-fluid">
   <div class="container">
-
-    <div id="user">
-      <h2 id="name"></h2>
-      <p class="meta">{{ page.date | date_to_string }}</p>
-      <p id="bio"></p>
+    <div class="mb-5 text-center">
+      <h1>
+        A person you should follow
+      </h1>
     </div>
-    <div id="shots" class="row"></div>
-    <div class="row dribbble-feed"></div>
-
-
+    <div class="row align-items-center justify-content-between">
+      <div class="col-xs-12 col-lg-4">
+        <div class="card">
+          <div id="featured-designer-image"></div>
+          <div class="card-body">
+            <div id="featuredDesignerUsername" style="display: none;">{{page.user}}</div>
+            <div id="featured-designer-info"></div>
+            <a class="btn btn-primary btn-lg btn-block" href="{{ post.url }}">go</a>
+          </div>
+        </div>
+      </div>
+      <div id="whyFeatured" class="col-xs-12 col-lg-7">
+        {{ page.content }}
+      </div>
+    </div>
   </div>
+</div>
+{% endfor %}
 
-  <script>
-  var user = "{{ page.user user_to_string }}";
-  var shots = "{{ page.userShots userShots_to_string }}";
+<!-- Injecting the junk from Dribbble -->
+<script>
 
-  $(function userShots(){
-    $.getJSON(shots, function(resp) {
-      if (resp.data.length > 0) {
-        $.each(resp.data.reverse(), function(i, val) {
-          $('#shots').prepend(
-            '<div class="col-xs-12 col-sm-4"><img class="image-shot" src="'+val.images.normal+'" /><h2>'+val.title+'</h2><p><a href="'+val.html_url+'">original post &rarr;</a></p></div>'
-          );
-        });
-      }
-      else {
-        $('#shots').append('No shots.');
-      }
-      //console.log(resp.data)
-    });
+// getting latest post's username
+var featuredDesigner = $('#featuredDesignerUsername').text();
+
+// setting token
+$.jribbble.setToken('{{ site.token }}');
+
+// pulling in latest shot from featured designer
+$.jribbble.users(featuredDesigner).shots({per_page: 1}).then(function(shots) {
+  var html = [];
+
+  shots.forEach(function(shot) {
+    html.push('<div class="featured-shot">');
+    html.push('<img class="card-img-top" src="' + shot.images.normal + '">');
+    html.push('</div>');
   });
-  $(function userInfo(){
-    $.getJSON(user, function(resp) {
-      $('#name').append(
-        resp.data.name
-      );
-      $('#bio').append(
-        '<p>'+resp.data.bio+'</p>'
-      );
-    });
-    
-  });
-  </script>
+
+  $('#featured-designer-image').append(html.join(''));
+});
+
+// pulling in designer info
+$.jribbble.users(featuredDesigner).then(function(user) {
+  var html = [];
+
+  html.push('<div class="media"><img class="avatar avatar--large d-flex mr-3 rounded" src="' + user.avatar_url + '">');
+  html.push('<div class="media-body"><h4>' + user.name + '</h4></div>');
+  html.push('</div>');
+  html.push('<p>' + user.bio + '<p/>');
+  html.push('<p>' + user.location + '<p/>');
+  html.push('<p>' + user.shots_count + ' shots</p>');
+
+  $('#featured-designer-info').append(html.join(''));
+});
+
+// pulling in designer info
+$.jribbble.users(featuredDesigner).then(function(user) {
+  var html = [];
+
+  html.push('<h2>' + user.name + '</h2></div>');
+
+  $('#whyFeatured').prepend(html.join(''));
+});
+
+
+
+
+</script>

@@ -3,36 +3,87 @@ layout: default
 title: Your New Jekyll Site
 ---
 
-<div class="container">
-  {% for post in site.posts limit: 1 %}
-    <div id="featuredUser">
-      <div id="featuredUserImage">
-
-      </div>
-      <span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a>
+{% for post in site.posts limit:1 %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class="mb-5 text-center">
+      <h1>
+        A person you should follow
+      </h1>
     </div>
-    <script>
-      var featuredUserUrl = "{{ shots }}";
-      $(function featuredUserImage(){
-        $.getJSON(featuredUserUrl, function(resp) {
-          if (resp.data.length > 0) {
-            $.each(resp.data.reverse(), function(i, val) {
-              $('#featuredUserImage').prepend(
-                '<img class="image-shot" src="'+val.images.normal+'" />'
-              );
-            });
-          }
-          else {
-            $('#shots').append('No shots.');
-          }
-          //console.log(resp.data)
-        });
-      });
-    </script>
-  {% endfor %}
-  <div class="row">
-    {% for post in site.posts limit: 1 %}
-      <div class="col-xs-12 col-sm-4"><h3><a href="{{ post.url }}">{{ post.title }}</a></h3><p>{{ post.date | date_to_string }}</p> </div>
-    {% endfor %}
+    <div class="row align-items-center justify-content-center">
+      <div id="whyFeatured" class="col-xs-12 col-lg-7">
+        <div id="featured-designer-info"></div>
+        <div id="featuredDesignerUsername" style="display: none;">{{post.user}}</div>
+        <a class="btn btn-shadow btn-round btn-primary mb-3" href="{{ post.url }}">Follow on Dribbble</a>
+        {{ post.content }}
+      </div>
+      <div class="col-xs-12 col-lg-3">
+        <div id="featured-designer-images"></div>
+      </div>
+    </div>
   </div>
 </div>
+{% endfor %}
+<section class="pt-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Featured in the past</h2>
+    <div class="row">
+      {% for post in site.posts offset:1 %}
+      <div class="col-xs-12 col-sm-4">
+        <div class="card card-round mb-4">
+          <div class="card-body">
+            <h4 class="card-title">{{ post.name }}</h4>
+            <p class="card-text"><small class="text-muted">{{ post.date | date: '%B %d, %Y' }}</small></p>
+            <a href="{{ post.url }}" class="text-muted">View Post</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- Injecting the junk from Dribbble -->
+<script>
+
+// getting latest post's username
+var featuredDesigner = $('#featuredDesignerUsername').text();
+
+// setting token
+$.jribbble.setToken('{{ site.token }}');
+
+// pulling in latest shot from featured designer
+$.jribbble.users(featuredDesigner).shots({per_page: 3}).then(function(shots) {
+  var html = [];
+
+  shots.forEach(function(shot) {
+    html.push('<div class="featured-shot">');
+    html.push('<img class="mb-4 img-round" src="' + shot.images.normal + '">');
+    html.push('</div>');
+  });
+
+  $('#featured-designer-images').append(html.join(''));
+});
+
+// pulling in designer info
+$.jribbble.users(featuredDesigner).then(function(user) {
+  var html = [];
+
+  html.push('<div class="media"><img class="avatar avatar--large d-flex mr-3 rounded" src="' + user.avatar_url + '">');
+  html.push('<div class="media-body mt-2 mb-3"><h4>' + user.name + '</h4></div>');
+  html.push('</div>');
+  html.push('<p class="mt-3">' + user.bio + '<br>');
+  html.push(user.location + '<br>');
+  html.push(user.shots_count + ' shots</p>');
+
+  $('#featured-designer-info').append(html.join(''));
+});
+
+
+
+
+
+
+</script>

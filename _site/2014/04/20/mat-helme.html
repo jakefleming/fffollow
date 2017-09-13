@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Your New Jekyll Site</title>
+  <title>Mat Helme</title>
   <meta name="viewport" content="width=device-width">
 
   <!-- Custom CSS -->
@@ -34,81 +34,26 @@
         A person you should follow
       </h1>
     </div>
-    <div class="row align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-xs-12 col-lg-4">
+        <div class="card">
+          <div id="featured-designer-image"></div>
+          <div class="card-body">
+            <div id="featuredDesignerUsername" style="display: none;">mathelme</div>
+            <div id="featured-designer-info"></div>
+            <a class="btn btn-primary btn-lg btn-block" href="/2014/04/20/timothy-j-reynolds.html">go</a>
+          </div>
+        </div>
+      </div>
       <div id="whyFeatured" class="col-xs-12 col-lg-7">
-        <div id="featured-designer-info"></div>
-        <div id="featuredDesignerUsername" style="display: none;">turnislefthome</div>
-        <a class="btn btn-shadow btn-round btn-primary mb-3" href="/2014/04/20/timothy-j-reynolds.html">Follow on Dribbble</a>
         <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#39;lorem ipsum&#39; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
 
 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#39;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&#39;t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
 
       </div>
-      <div class="col-xs-12 col-lg-3">
-        <div id="featured-designer-images"></div>
-      </div>
     </div>
   </div>
 </div>
-
-<section class="pt-5">
-  <div class="container">
-    <h2 class="text-center mb-5">Featured in the past</h2>
-    <div class="row">
-      
-      <div class="col-xs-12 col-sm-4">
-        <div class="card card-round mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Trevor Van Meter</h4>
-            <p class="card-text"><small class="text-muted">April 20, 2014</small></p>
-            <a href="/2014/04/20/trevor-van-meter.html" class="text-muted">View Post</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-xs-12 col-sm-4">
-        <div class="card card-round mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Mat Helme</h4>
-            <p class="card-text"><small class="text-muted">April 20, 2014</small></p>
-            <a href="/2014/04/20/mat-helme.html" class="text-muted">View Post</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-xs-12 col-sm-4">
-        <div class="card card-round mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Nick Slater</h4>
-            <p class="card-text"><small class="text-muted">April 20, 2014</small></p>
-            <a href="/2014/04/20/nick-slater.html" class="text-muted">View Post</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-xs-12 col-sm-4">
-        <div class="card card-round mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Michael B. Myers Jr.</h4>
-            <p class="card-text"><small class="text-muted">April 20, 2014</small></p>
-            <a href="/2014/04/20/michael-b-meyers-jr.html" class="text-muted">View Post</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-xs-12 col-sm-4">
-        <div class="card card-round mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Phil Giarrusso</h4>
-            <p class="card-text"><small class="text-muted">April 20, 2014</small></p>
-            <a href="/2014/04/20/phil-giarrusso.html" class="text-muted">View Post</a>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</section>
 
 
 <!-- Injecting the junk from Dribbble -->
@@ -121,16 +66,16 @@ var featuredDesigner = $('#featuredDesignerUsername').text();
 $.jribbble.setToken('d9a9e59256a57be351084c76de8935f1c291044eb758d13aae2d300e227868fe');
 
 // pulling in latest shot from featured designer
-$.jribbble.users(featuredDesigner).shots({per_page: 3}).then(function(shots) {
+$.jribbble.users(featuredDesigner).shots({per_page: 1}).then(function(shots) {
   var html = [];
 
   shots.forEach(function(shot) {
     html.push('<div class="featured-shot">');
-    html.push('<img class="mb-4 img-round" src="' + shot.images.normal + '">');
+    html.push('<img class="card-img-top" src="' + shot.images.normal + '">');
     html.push('</div>');
   });
 
-  $('#featured-designer-images').append(html.join(''));
+  $('#featured-designer-image').append(html.join(''));
 });
 
 // pulling in designer info
@@ -138,16 +83,23 @@ $.jribbble.users(featuredDesigner).then(function(user) {
   var html = [];
 
   html.push('<div class="media"><img class="avatar avatar--large d-flex mr-3 rounded" src="' + user.avatar_url + '">');
-  html.push('<div class="media-body mt-2 mb-3"><h4>' + user.name + '</h4></div>');
+  html.push('<div class="media-body"><h4>' + user.name + '</h4></div>');
   html.push('</div>');
-  html.push('<p class="mt-3">' + user.bio + '<br>');
-  html.push(user.location + '<br>');
-  html.push(user.shots_count + ' shots</p>');
+  html.push('<p>' + user.bio + '<p/>');
+  html.push('<p>' + user.location + '<p/>');
+  html.push('<p>' + user.shots_count + ' shots</p>');
 
   $('#featured-designer-info').append(html.join(''));
 });
 
+// pulling in designer info
+$.jribbble.users(featuredDesigner).then(function(user) {
+  var html = [];
 
+  html.push('<h2>' + user.name + '</h2></div>');
+
+  $('#whyFeatured').prepend(html.join(''));
+});
 
 
 
