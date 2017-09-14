@@ -50,3 +50,10 @@ gulp.task("deploy", ["jekyll-build"], function () {
         .pipe(deploy());
 });
 ```
+
+#TODO
+
+- Grid of past featured designers with name, avatar, etc... on index page beneath featured designer(Currently kinda janky because of how posts are set up)
+- Optimize how data is being pulled from dribbble's api and injected into the index page (Currently seems a bit hacky, but I dunno)
+- Rethink how posts are setup to make it easier to pull data from dribbble's API (Currently seems a bit hacky, but I dunno)
+- Figure out how to do all of that in a way that only requires us to change create a new post and change the username and write a blurb about why that designer is cool.

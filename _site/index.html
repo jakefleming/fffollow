@@ -125,9 +125,9 @@ $.jribbble.users(featuredDesigner).shots({per_page: 3}).then(function(shots) {
   var html = [];
 
   shots.forEach(function(shot) {
-    html.push('<div class="featured-shot">');
-    html.push('<img class="mb-4 img-round" src="' + shot.images.normal + '">');
-    html.push('</div>');
+    html.push('<a href="' + shot.html_url + '"><div class="featured-shot card mb-4 ">');
+    html.push('<img class="img-round" src="' + shot.images.normal + '">');
+    html.push('</div></a>');
   });
 
   $('#featured-designer-images').append(html.join(''));
@@ -137,7 +137,7 @@ $.jribbble.users(featuredDesigner).shots({per_page: 3}).then(function(shots) {
 $.jribbble.users(featuredDesigner).then(function(user) {
   var html = [];
 
-  html.push('<div class="media"><img class="avatar avatar--large d-flex mr-3 rounded" src="' + user.avatar_url + '">');
+  html.push('<div class="media"><a href="' + user.html_url + '"><img class="avatar avatar--large d-flex mr-3 rounded" src="' + user.avatar_url + '"></a>');
   html.push('<div class="media-body mt-2 mb-3"><h4>' + user.name + '</h4></div>');
   html.push('</div>');
   html.push('<p class="mt-3">' + user.bio + '<br>');
