@@ -33,12 +33,34 @@ title: Your New Jekyll Site
       <div class="col-xs-12 col-sm-4">
         <div class="card card-round mb-4">
           <div class="card-body">
+            <div id="test-avatar-{{ post.user }}">
+            </div>
             <h4 class="card-title">{{ post.name }}</h4>
             <p class="card-text"><small class="text-muted">{{ post.date | date: '%B %d, %Y' }}</small></p>
             <a href="{{ post.url }}" class="text-muted">View Post</a>
           </div>
         </div>
       </div>
+
+      <!-- Injecting the junk from Dribbble -->
+      <script>
+
+      // getting latest post's username
+      var designerUsername = "{{ post.user }}";
+
+      // setting token
+      $.jribbble.setToken('{{ site.token }}');
+
+      // pulling in designer info
+      $.jribbble.users(designerUsername).then(function(user) {
+        var html = [];
+
+        html.push('<div class="media"><a href="' + user.html_url + '"><img class="avatar avatar--large d-flex mr-3 rounded" src="' + user.avatar_url + '"></a>');
+
+        $('#test-avatar-' + user.username).append(html.join(''));
+      });
+      </script>
+
       {% endfor %}
     </div>
   </div>
