@@ -1,5 +1,4 @@
 name: fffollow
-markdown: redcarpet
 highlighter: pygments # or rouge or null
 exclude: ["node_modules", "gulpfile.js", "package.json"]
 token: d9a9e59256a57be351084c76de8935f1c291044eb758d13aae2d300e227868fe
